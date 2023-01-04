@@ -77,7 +77,7 @@ readinessProbe:
 ##  webapp.service.port The service port to expose the webapp on
 ##  webapp.service.annotations Annotations for the webapp service resource
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
   annotations: {}
 
