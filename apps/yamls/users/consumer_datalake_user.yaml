@@ -1,0 +1,44 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: consumer-datalake
+  labels:
+    strimzi.io/cluster: llkafka
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple
+    acls:
+      # Topics and groups used by the HTTP clients through the HTTP Bridge
+      # Change to match the topics used by your HTTP clients
+      - resource:
+          type: topic
+          name: src-bandplay-user-json
+          patternType: literal
+        operation: Read
+        host: "*"
+      - resource:
+          type: topic
+          name: src-bandplay-user-json
+          patternType: literal
+        operation: Describe
+        host: "*"
+      - resource:
+          type: topic
+          name: src-arealogada-user-json
+          patternType: literal
+        operation: Read
+        host: "*"
+      - resource:
+          type: topic
+          name: src-arealogada-user-json
+          patternType: literal
+        operation: Describe
+        host: "*"
+      - resource:
+          type: group
+          name: consumer-datalake
+          patternType: literal
+        operation: Read
+        host: "*"

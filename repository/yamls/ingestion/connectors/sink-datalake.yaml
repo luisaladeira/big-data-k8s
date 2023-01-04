@@ -1,0 +1,19 @@
+apiVersion: "kafka.strimzi.io/v1beta2"
+kind: "KafkaConnector"
+metadata:
+  # connector name
+  name: "sink-datalake-connector"
+  labels:
+    # kafka connect [cluster] name
+    strimzi.io/cluster: llkafka
+spec:
+  class: org.apache.camel.kafkaconnector.azurestoragedatalake.CamelAzurestoragedatalakeSinkConnector
+  tasksMax: 1
+  config:
+    key.converter: org.apache.kafka.connect.storage.StringConverter
+    value.converter: org.apache.kafka.connect.storage.StringConverter
+    topics: "src-bandplay-user-json"
+    camel.sink.endpoint.clientId: 91c57a0b-96db-41c9-ba4e-d1ff335f39e9
+    camel.sink.endpoint.accountKey: UDKAOy53b0lY/HM6Zjd/ZTk0qj6J9/1caKz7doLy5PNKVhoqaAJn2Y8x17hWbSz1KZsbieNN6FxBck8J+6GwSQ==
+    camel.sink.path.accountName: datalakeestudo
+    camel.component.azure-storage-datalake.directoryName: "bandplay"

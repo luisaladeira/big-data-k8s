@@ -1,0 +1,21 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: crj-consumer-datalake
+spec:
+  schedule: "*/10 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: crj-strimzi-events
+            image: owshq/ingestion-data-stores:0.1
+            imagePullPolicy: IfNotPresent
+            command: ["/bin/sh", "-c"]
+            args:
+              - echo starting;
+                python3 cli.py 'src-bandplay-user-json';
+                echo done;
+          restartPolicy: OnFailure
