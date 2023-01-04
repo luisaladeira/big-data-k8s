@@ -2,7 +2,8 @@
 TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
 
 # create namespaces
-kubectl create namespace ingestion
+kubectl create namespace ingestion-realtime
+kubectl create namespace ingestion-batch
 kubectl create namespace monitoring
 kubectl create namespace cicd
 
@@ -54,6 +55,10 @@ kubectl apply -f repository/app-manifests/ingestion/schema-registry.yaml
 kubectl apply -f repository/app-manifests/ingestion/kafka-connect.yaml
 kubectl apply -f repository/app-manifests/ingestion/cruise-control.yaml
 kubectl apply -f repository/app-manifests/ingestion/kafka-connectors.yaml
+
+# ingestion batch
+kubectl apply -f repository/app-manifests/ingestion/airbyte.yaml
+
 
 # monitoring
 kubectl apply -f repository/app-manifests/monitoring/prometheus-alertmanager-grafana-botkube.yaml

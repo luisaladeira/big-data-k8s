@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  # app name
+  name: airbyte
+  # deployed yaml
+  namespace: cicd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/luisaladeira/big-data-k8s.git"
+    path: repository/helm-charts/airbyte/airbyte/
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: ingestion-batch
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
